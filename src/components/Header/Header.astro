@@ -1,0 +1,104 @@
+---
+import Logo from "@/assets/svg/logo.svg";
+import MenuButton from "@/assets/svg/menu.svg";
+import CloseButton from "@/assets/svg/close-button.svg";
+import Navigation from "@/components/Header/Navigation.astro";
+
+const LINKS = [
+    { href: "/", label: "Inicio" },
+    { href: "/cursos", label: "Cursos" },
+    { href: "/nosotros", label: "Nosotros" },
+    { href: "/contacto", label: "Contacto" },
+];
+
+// Obtenemos la ruta actual
+const { pathname } = Astro.url;
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-border bg-white/90 backdrop-blur-sm transition-colors dark:bg-neutral-950/90 dark:border-neutral-800">
+
+    <div class="mx-auto flex h-16 w-full max-w-100 items-center justify-between px-4 sm:max-w-160 md:max-w-3xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-384">
+        
+        <div class="flex items-center gap-2">
+            <Logo />
+            <h1 class="h-8 text-xl font-bold text-foreground dark:text-neutral-50">TechAcademy</h1>
+        </div>
+
+        <Navigation links={LINKS} /> 
+
+        <div class="flex items-center gap-4">
+            <a href="/login" class="hidden px-3 py-1.5 text-sm font-semibold transition-all duration-300 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-1 focus-visible:outline-ring dark:bg-dark-primary dark:text-dark-primary-foreground dark:hover:bg-dark-primary-hover dark:focus-visible:outline-dark-ring">
+                Comenzar Ahora
+            </a>
+            
+            <button data-slot="menu-button" aria-label="Abrir menú" class="h-10 w-10 shrink-0 cursor-pointer lg:hidden focus-visible:outline-none">
+                <MenuButton/>
+            </button>
+            
+            {<!--Menu Mobile -->}
+            <section id="MenuContent" class="menu-mobile z-10 min-h-screen w-screen bg-white opacity-0 invisible transition-[opacity,visibility] duration-300 dark:bg-neutral-950">
+                <div class="grid-mobile">
+                    <div data-slot="close-button" aria-label="Cerrar menú" class="flex h-full w-full shrink-0 cursor-pointer items-center justify-center">
+                        <CloseButton/>
+                    </div>
+                    {
+                        LINKS.map((link) => (
+                            <a href={link.href} class={`block h-full w-full place-content-center text-center text-2xl font-extrabold leading-8 dark:text-neutral-50 
+                                    ${link.href === pathname ? "text-primary dark:text-dark-primary pointer-events-none opacity-80"
+                                    : "text-foreground hover:text-primary dark:hover:text-dark-primary"}`}>
+                                {link.label}
+                            </a>
+                        ))
+                    }
+                </div>
+            </section>
+        </div>
+    </div>
+</header>
+
+<style>
+    @media(width >=405px){
+        a[href="/login"]{
+            display: block;
+        }
+    }
+    .menu-mobile{
+        display : grid;
+        position: fixed;
+        inset: 0;
+    }
+    
+    .grid-mobile{
+        display: grid;
+        grid-template-rows: 20% auto;
+        place-items: center;
+        overflow-y: hidden;
+    }
+
+    .show {
+    opacity: 1;
+    visibility: visible;
+}
+</style>
+
+<script type="module">
+    const menuSection = document.querySelector("#MenuContent");
+    const openButton = document.querySelector('[data-slot="menu-button"]');
+    const closeButton = document.querySelector('[data-slot="close-button"]');
+
+    const closeMenu = () => {
+        menuSection?.classList.remove("show");
+    };
+
+    openButton?.addEventListener("click", () => {
+        menuSection?.classList.add("show");
+    });
+
+    closeButton?.addEventListener("click", closeMenu);
+
+    // Cierra el menú al hacer clic en cualquier enlace
+    const mobileLinks = menuSection?.querySelectorAll('a[href]');
+    mobileLinks?.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+</script>

@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: "GeistSans";
+    src: url('/fonts/GeistSans.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Segoe UI";
+    src: url('/fonts/Segoe-UI.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    /* Light Mode */
+    --color-primary: #d3721e;
+    --color-primary-rgb: 211, 114, 30;
+    --color-primary-hover: rgb(232, 128, 37);
+    --color-primary-foreground: #ffffff;
+
+    --color-secondary: #f99100;
+    --color-secondary-rgb: 249, 145, 0;
+    --color-secondary-foreground: #222222;
+
+    --color-accent: #f99100;
+    --color-accent-rgb: 249, 145, 0;
+    --color-accent-foreground: #ffffff;
+
+    --color-background: oklch(1 0 0);
+    --color-foreground: #222222;
+
+    --color-card: #ffffff;
+    --color-card-foreground: #222222;
+
+    --color-popover: #fff8ea;
+    --color-popover-foreground: #222222;
+
+    --color-muted: oklch(.98 .02 85);
+    --color-muted-foreground: oklch(.25 0 0);
+
+    --color-destructive: #e7000b;
+    --color-destructive-foreground: #ffffff;
+
+    --color-border: oklch(.922 0 0);
+    --color-input: #f5f5f5;
+    --color-ring: #d3721e;
+    --color-ring-rgb: rgb(211, 114, 30);
+    --color-color: #262626;
+
+    /* Amber palette (usado en ambos modos) */
+    --color-amber-50: #fffbf0;
+    --color-amber-100: #fffbeb;
+    --color-amber-200: #fde68a;
+    --color-amber-400: #fbbf24;
+    --color-amber-500: #f59e0b;
+    --color-amber-600: #d97706;
+    --color-amber-700: #b45309;
+
+    /* Dark Mode */
+    --color-dark-primary: #f59e0b;
+    --color-dark-primary-hover: #fbbf24;
+    --color-dark-primary-foreground: #0a0a0a;
+
+    --color-dark-secondary: #fbbf24;
+    --color-dark-secondary-foreground: #0a0a0a;
+
+    --color-dark-accent: #f59e0b;
+    --color-dark-accent-foreground: #0a0a0a;
+
+    --color-dark-background: #0a0a0a;
+    --color-dark-foreground: #fafafa;
+
+    --color-dark-card: #171717;
+    --color-dark-card-foreground: #fafafa;
+
+    --color-dark-popover: #171717;
+    --color-dark-popover-foreground: #fafafa;
+
+    --color-dark-muted: #262626;
+    --color-dark-muted-foreground: #a3a3a3;
+
+    --color-dark-destructive: #ef4444;
+    --color-dark-destructive-foreground: #fafafa;
+
+    --color-dark-border: #262626;
+    --color-dark-input: #171717;
+    --color-dark-ring: #f59e0b;
+    --color-dark-color: #d4d4d4;
+}

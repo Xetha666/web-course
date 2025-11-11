@@ -1,0 +1,76 @@
+---
+import PLANS from '@/utils/Plans.json';
+import Check from '@/assets/svg/check.svg';
+import ButtonPopular from '@/components/ButtonPopular.astro';
+---
+
+<section class="from-background to-muted/20 bg-linear-to-b py-24">
+  <div class="mx-auto px-4 sm:max-w-160 md:max-w-3xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-384">
+    <div class="mb-16 text-center">
+      <h2 class="mb-4 text-4xl font-bold text-balance">
+        Planes que se Adaptan a tu <span class="text-primary">Crecimiento</span>
+      </h2>
+      <p class="text-muted-foreground mx-auto max-w-2xl text-xl text-pretty">
+        Elige el plan perfecto para tu nivel y objetivos profesionales. Todos
+        incluyen acceso inmediato y garantía de satisfacción.
+      </p>
+    </div>
+
+    <div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
+      {
+        PLANS.map((plan) => (
+          <article class={`bg-card relative rounded-xl border-2 p-8 transition-all
+          ${plan.popular ? 'border-primary scale-105 shadow-lg' : 'border-border'}`}>
+            <!--Más Popular Notify-->
+            {plan.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 transform">
+                <span class="bg-primary text-primary-foreground rounded-full px-3 py-2 text-sm font-semibold">
+                  Más Popular
+                </span>
+              </div>
+            )}
+
+            <div class="pb-8 text-center">
+              <div class="text-2xl font-bold">{plan.name}</div>
+              <div class="text-muted-foreground mt-2">{plan.description}</div>
+              <div class="mt-4">
+                <span class="text-primary text-4xl font-bold">
+                  {plan.price}
+                </span>
+                <span class="text-muted-foreground">{plan.period}</span>
+              </div>
+            </div>
+
+            <div class="mb-8 space-y-4">
+              {plan.features.map((feature) => (
+                <div class="flex items-center gap-3">
+                  <Check />
+                  <span class="text-sm">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <footer>
+              <ButtonPopular
+                popular={plan.popular}
+                planName={plan.name}
+                planPrice={plan.price}
+              />
+            </footer>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <p class="text-muted-foreground mb-4">
+        ¿Necesitas un plan personalizado para tu empresa?
+      </p>
+      <button
+        class="cursor-pointer border-border text-color hover:bg-primary rounded-lg border-2 px-6 py-3 transition-all hover:text-white"
+      >
+        Contactar Ventas
+      </button>
+    </div>
+  </div>
+</section>

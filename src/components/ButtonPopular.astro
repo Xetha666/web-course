@@ -1,0 +1,32 @@
+---
+interface Props {
+  popular: boolean;
+  planName: string;
+  planPrice: string;
+}
+
+const { popular = false, planName, planPrice } = Astro.props;
+---
+
+<button
+  class={`cursor-pointer w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
+    popular
+      ? 'bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg'
+      : 'border-2 border-border text-color bg-transparent hover:bg-primary hover:text-white'
+  }`}
+  data-plan-name={planName}
+  data-plan-price={planPrice}
+>
+  Comenzar Ahora
+</button>
+
+<script>
+  document.querySelectorAll('button[data-plan-name]').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLButtonElement;
+      const planName = target.dataset.planName;
+      const planPrice = target.dataset.planPrice;
+      console.log('Plan seleccionado:', { planName, planPrice });
+    });
+  });
+</script>

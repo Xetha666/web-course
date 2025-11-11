@@ -1,0 +1,56 @@
+---
+interface Link {
+    href: string;
+    label: string;
+}
+
+interface Props {
+    links: Link[];
+}
+
+const { links } = Astro.props; 
+
+// Obtenemos la ruta actual directamente
+const { pathname } = Astro.url;
+---
+
+<nav class="hidden items-center gap-8 lg:flex">
+    {
+        links.map((link) => (
+            <a href={link.href} class={`nav-link relative inline-block pb-2 text-foreground transition-colors duration-300 hover:text-primary focus-visible:outline-1 focus-visible:outline-ring dark:text-dark-foreground dark:hover:text-dark-primary dark:focus-visible:outline-dark-ring
+                ${link.href === pathname ? "active pointer-events-none cursor-not-allowed text-primary-hover opacity dark:text-dark-primary-hover" : ""}`}>
+                {link.label}
+            </a>
+        ))
+    }
+</nav>
+
+<style>
+    .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0.1875rem;
+        background-color: var(--color-primary-hover);
+        border-radius: 0.125rem;
+        transition: width 0.3s ease-out;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .nav-link::after {
+            background-color: var(--color-dark-primary);
+        }
+    }
+
+    .nav-link:not(.active):hover::after {
+        width: 100%;
+    }
+
+    .nav-link.active::after {
+        width: 100%;
+        opacity: 0.3;
+    }
+</style>
