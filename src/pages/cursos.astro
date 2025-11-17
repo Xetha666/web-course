@@ -2,10 +2,210 @@
 import Footer from "@/components/Footer/Footer.astro";
 import Header from "@/components/Header/Header.astro";
 import Layout from "@/layouts/Layout.astro";
+import cursosData from '@/utils/Courses.json'; 
+
+const filtrosNivel = [
+    { label: 'Todos', active: true },
+    { label: 'Principiante', active: false },
+    { label: 'Intermedio', active: false },
+    { label: 'Avanzado', active: false },
+];
+
+const totalCursos = cursosData.length;
 ---
 
 <Layout title="Cursos">
-	<Header />
-	{/* TODO: Contenido de la pagina*/}
-	<Footer />
+    <Header/>
+        <main class="min-h-screen bg-background">
+            
+            <div class="bg-linear-to-r from-primary/10 to-accent/10 py-12">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 class="text-4xl font-bold text-foreground mb-2">Nuestros Cursos</h1>
+                    <p class="text-lg text-foreground/70">Elige entre nuestros cursos especializados en tecnología</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="mb-8">
+                    <input class="courses-search-input w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Buscar cursos..." type="text">
+                </div>
+                
+                <div id="filter-container" class="flex flex-wrap gap-3 mb-8">
+                    {filtrosNivel.map((filtro) => (
+                        <button class={`courses-filter-button cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-9 px-4 py-2 ${filtro.active ? 'active' : ''}`}>
+                            {filtro.label}
+                        </button>
+                    ))}
+                </div>
+                
+                <p class="text-sm text-muted-foreground mb-6">Mostrando <span id="visible-count">{totalCursos}</span> de {totalCursos} cursos</p>
+                
+                <p class="empty-text text-center text-muted-foreground py-8 hidden">No se encontraron cursos</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {cursosData.map((curso) => (
+                        <div class="course-card bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-border flex flex-col h-full">
+                            <div class="relative h-48 w-full overflow-hidden bg-muted">
+                                <img alt={curso.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" src={curso.imagenUrl} />
+                                <div class="course-card-title absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">{curso.nivel}</div>
+                            </div>
+                            <div class="p-5 flex flex-col grow">
+                                <h3 class="text-lg font-bold text-foreground mb-2 line-clamp-2">{curso.titulo}</h3>
+                                <p class="text-sm text-foreground/70 mb-4 line-clamp-2">{curso.descripcion}</p>
+                                <p class="text-sm text-muted-foreground mb-3"><span class="font-semibold">Instructor:</span> {curso.instructor}</p>
+                                
+                                <div class="flex items-center gap-2 mb-3">
+                                    <div class="flex text-accent">
+                                        {
+                                            Array.from({ length: 5 }).map((_, index) => (                                            
+                                                <span class={index < Math.floor(curso.calificacion) ? 'text-accent' : 'text-muted'}>★</span>
+                                            ))
+                                        }
+                                    </div>
+                                    <span class="text-sm text-muted-foreground">{curso.calificacion} ({curso.reseñas} reseñas)</span>
+                                </div>
+                                
+                                <div class="flex justify-between text-sm text-muted-foreground mb-4 pb-4 border-b border-border">
+                                    <span>⏱️ {curso.duracionHoras} horas</span>
+                                    <span>👥 {curso.estudiantes} estudiantes</span>
+                                </div>
+                                <div class="flex items-center justify-between mt-auto">                                
+                                    <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-4 shrink-0 [&>svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[&>svg]:px-3 bg-primary text-primary-foreground hover:bg-primary/90">Inscribirse</button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </main>
+    <Footer/>
 </Layout>
+
+<style>
+    :root {
+        --background: #ffffff;
+        --foreground: #222222;
+        --border: oklch(.922 0 0);
+        --accent: #f99100;
+        --accent-foreground: #ffffff;
+        --primary: #d3721e;
+        --primary-foreground: #ffffff;
+    }
+    .course-card-hidden {
+        display: none;
+    }
+    
+    .empty-text-show {
+        display: block;
+    }
+
+    /* Estilos para botones de filtro */
+    .courses-filter-button {
+        background-color: var(--background);
+        border: 1px solid var(--border);
+        color: var(--foreground);
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    }
+
+    .courses-filter-button:hover {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+    }
+
+    .courses-filter-button.active {
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+        border-color: var(--primary);
+    }
+
+    .courses-filter-button.active:hover {
+        opacity: 0.9;
+    }
+</style>
+
+<script type="module">
+    const searchInput = document.querySelector('.courses-search-input');
+    const noResults = document.querySelector('.empty-text');
+    const cards = document.querySelectorAll('.course-card');
+    const visibleCountSpan = document.getElementById('visible-count');
+
+    /* Filter Input */
+    function filterCards() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let visibleCards = 0;
+
+        cards.forEach(card => {
+            let title = card.querySelector('h3').textContent.toLowerCase();
+
+            if (title.includes(searchTerm)) {
+                card.classList.remove('course-card-hidden');
+                visibleCards++;
+            } else {
+                card.classList.add('course-card-hidden');
+            }
+        });
+
+        // Actualizar contador
+        if (visibleCountSpan) {
+            visibleCountSpan.textContent = visibleCards;
+        }
+
+        // Mostrar u ocultar el mensaje de "no hay resultados"
+        if (visibleCards === 0 && searchTerm !== '') {
+            noResults.classList.add('empty-text-show');
+        } else {
+            noResults.classList.remove('empty-text-show');
+        }
+    }
+
+    searchInput.addEventListener('input', filterCards);
+
+    /* Filter Difficulty */
+    function filterDifficulty(event) {
+        const button = event.target;
+
+        // Verificar que se hizo click en un botón
+        if (!button.classList.contains('courses-filter-button')) return;
+
+        const buttonName = button.textContent.toLowerCase().trim();
+        const buttons = document.querySelectorAll('.courses-filter-button');
+        let visibleCards = 0; 
+
+        // Remover la clase 'active' de todos los botones y agregarla al botón clickeado
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        cards.forEach(card => {
+            // Obtener el nivel de dificultad de la tarjeta
+            const difficulty = card.querySelector('.course-card-title').textContent.toLowerCase().trim();
+
+            // Si el botón es "todos", mostrar todas las tarjetas
+            if (buttonName === 'todos') {
+                card.classList.remove('course-card-hidden');
+                visibleCards++;
+            }
+            // Si no, verificar si la dificultad coincide
+            else if (difficulty === buttonName) {
+                card.classList.remove('course-card-hidden');
+                visibleCards++;
+            } else {
+                card.classList.add('course-card-hidden');
+            }
+        });
+
+        // Actualizar contador
+        if (visibleCountSpan) {
+            visibleCountSpan.textContent = visibleCards;
+        }
+
+        // Mostrar u ocultar el mensaje de "no hay resultados"
+        if (visibleCards === 0) {
+            noResults.classList.add('empty-text-show');
+        } else {
+            noResults.classList.remove('empty-text-show');
+        }
+    }
+
+    const filterContainer = document.getElementById('filter-container');
+    filterContainer.addEventListener('click', filterDifficulty);
+</script>

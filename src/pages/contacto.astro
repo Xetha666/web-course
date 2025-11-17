@@ -1,11 +1,91 @@
 ---
-import Footer from "@/components/Footer/Footer.astro";
-import Header from "@/components/Header/Header.astro";
+import ContactInfo from "@/utils/ContactInfo.json";
+import SocialLinks from "@/utils/SocialLinks.json";
 import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header/Header.astro";
+import FormContact from "@/components/FormContact.astro";
+import IconEmail from "@/assets/svg/contact-mail.svg";
+import IconPhone from "@/assets/svg/phone.svg";
+import IconLocation from "@/assets/svg/location.svg";
+import IconClock from "@/assets/svg/contact-clock.svg";
+import Footer from "@/components/Footer/Footer.astro";
+
+const iconComponents: Record<string, any> = {
+  Email: IconEmail,
+  Phone: IconPhone,
+  Location: IconLocation,
+  Clock: IconClock,
+};
 ---
 
 <Layout title="Contacto">
-	<Header />
-	{/* TODO: Contenido de la pagina*/}
-	<Footer />
+  <Header />  
+  <main class="flex-1">
+    <section class="py-16 md:py-24 bg-linear-to-b from-amber-50 to-background">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold text-foreground mb-4">Ponte en Contacto</h1>
+          <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+            ¿Tienes preguntas sobre nuestros cursos? Nos encantaría escucharte. Completa el formulario y nos pondremos en contacto pronto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          
+          <div class="lg:col-span-2">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+              <h2 class="text-2xl font-bold text-foreground mb-6">Envíanos un Mensaje</h2>
+              <FormContact/>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            {
+              ContactInfo.map((contact) => {
+                const Icon = iconComponents[contact.icon];
+                return (
+                  <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-start gap-4">
+                      <div class="shrink-0">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-amber-100">
+                          <Icon />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-foreground mb-1">{contact.title}</h3>
+                        {contact.details.map((detail) => (
+                          <p class="text-muted-foreground">{detail}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            }
+
+            <div class="bg-white rounded-lg shadow-lg p-6">
+              <h3 class="text-lg font-semibold text-foreground mb-4">Síguenos</h3>
+              <div class="flex gap-4">
+                {
+                  SocialLinks.map((social) => (
+                    <a href={social.href} title={social.name} class="flex items-center justify-center h-10 w-10 rounded-lg bg-amber-100 hover:bg-amber-200 transition-colors"
+                    aria-label={social.name}>
+                      <svg class="h-5 w-5 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d={social.path} />
+                      </svg>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>

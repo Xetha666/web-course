@@ -3,6 +3,14 @@ import Logo from "@/assets/svg/logo.svg";
 import MenuButton from "@/assets/svg/menu.svg";
 import CloseButton from "@/assets/svg/close-button.svg";
 import Navigation from "@/components/Header/Navigation.astro";
+import User from "@/assets/svg/user.svg";
+import Settings from "@/assets/svg/settings.svg";
+import Logout from "@/assets/svg/logout.svg";
+
+
+import { getSession } from 'auth-astro/server';
+const session = await getSession(Astro.request);
+
 
 const LINKS = [
     { href: "/", label: "Inicio" },
@@ -19,6 +27,7 @@ const { pathname } = Astro.url;
 
     <div class="mx-auto flex h-16 w-full max-w-100 items-center justify-between px-4 sm:max-w-160 md:max-w-3xl lg:max-w-5xl xl:max-w-7xl 2xl:max-w-384">
         
+        <!--Logo-->
         <div class="flex items-center gap-2">
             <Logo />
             <h1 class="h-8 text-xl font-bold text-foreground dark:text-neutral-50">TechAcademy</h1>
@@ -27,15 +36,52 @@ const { pathname } = Astro.url;
         <Navigation links={LINKS} /> 
 
         <div class="flex items-center gap-4">
-            <a href="/login" class="hidden px-3 py-1.5 text-sm font-semibold transition-all duration-300 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-1 focus-visible:outline-ring dark:bg-dark-primary dark:text-dark-primary-foreground dark:hover:bg-dark-primary-hover dark:focus-visible:outline-dark-ring">
-                Comenzar Ahora
-            </a>
-            
-            <button data-slot="menu-button" aria-label="Abrir menú" class="h-10 w-10 shrink-0 cursor-pointer lg:hidden focus-visible:outline-none">
+            {
+                session ? 
+                (                    
+                    <div class="user-menu-container hidden relative">
+                        <button id="user-menu-button" class="cursor-pointer flex items-center gap-2 px-3 py-1.5 text-sm font-semibold transition-all duration-300 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-1 focus-visible:outline-ring dark:bg-dark-primary dark:text-dark-primary-foreground dark:hover:bg-dark-primary-hover dark:focus-visible:outline-dark-ring">
+                            <img src={session?.user?.image} alt="Avatar del usuario" class="size-8 rounded-full object-cover"/>
+                            <span>{session?.user?.name?.split(' ')[0] || 'Usuario'}</span>
+                            <svg class="w-3 h-3 transition-transform rotate-180 duration-200" id="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div id="user-dropdown" class="absolute right-0 w-48 opacity-0 invisible transition-all duration-200 ease-out transform scale-95 origin-top-right">
+                            <div class="rounded-lg shadow-lg border border-border bg-white dark:bg-neutral-900 dark:border-neutral-800 overflow-hidden">
+                                <nav>
+                                    <a href="/perfil" class="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted dark:text-neutral-50 dark:hover:bg-neutral-800 transition-colors">
+                                        <User/>
+                                        <span>Perfil</span>
+                                    </a>
+                                    
+                                    <a href="/configuracion" class="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted dark:text-neutral-50 dark:hover:bg-neutral-800 transition-colors">
+                                        <Settings/>
+                                        <span>Configuración</span>
+                                    </a>
+
+                                    <div class="border-t border-border dark:border-neutral-800"></div>
+                                    
+                                    <button id="logout" class="cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-muted dark:text-dark-destructive dark:hover:bg-neutral-800 transition-colors w-full text-left">
+                                        <Logout/>
+                                        <span>Cerrar sesión</span>
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                        <a href="/login" class="hidden px-3 py-1.5 text-sm font-semibold transition-all duration-300 rounded-md bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:outline-1 focus-visible:outline-ring dark:bg-dark-primary dark:text-dark-primary-foreground dark:hover:bg-dark-primary-hover dark:focus-visible:outline-dark-ring">
+                            Comenzar Ahora
+                        </a>
+                    )
+            }
+           
+            <button data-slot="menu-button" aria-label="Abrir menú" class="hidden h-10 w-10 shrink-0 cursor-pointer focus-visible:outline-none">
                 <MenuButton/>
             </button>
             
-            {<!--Menu Mobile -->}
             <section id="MenuContent" class="menu-mobile z-10 min-h-screen w-screen bg-white opacity-0 invisible transition-[opacity,visibility] duration-300 dark:bg-neutral-950">
                 <div class="grid-mobile">
                     <div data-slot="close-button" aria-label="Cerrar menú" class="flex h-full w-full shrink-0 cursor-pointer items-center justify-center">
@@ -57,11 +103,25 @@ const { pathname } = Astro.url;
 </header>
 
 <style>
-    @media(width >=405px){
-        a[href="/login"]{
+    @media(width >=320px){
+        a[href="/login"],
+        .user-menu-container {
+            display: block;
+        }        
+    }
+
+    @media(width >=375px){
+        button[data-slot="menu-button"]{
             display: block;
         }
     }
+
+    @media(width >=1024px){
+        button[data-slot="menu-button"]{
+            display: none;
+        }
+    }
+    
     .menu-mobile{
         display : grid;
         position: fixed;
@@ -76,9 +136,26 @@ const { pathname } = Astro.url;
     }
 
     .show {
-    opacity: 1;
-    visibility: visible;
-}
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .dropdown-show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    #user-menu-button:hover + #user-dropdown,
+    #user-dropdown:hover {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+
+    #user-menu-button:hover #chevron {
+        transform: rotate(180deg);
+    }
 </style>
 
 <script type="module">
@@ -101,4 +178,14 @@ const { pathname } = Astro.url;
     mobileLinks?.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
+</script>
+
+<script>
+    import { signOut } from "auth-astro/client"
+    
+    const logout = document.getElementById("logout") as HTMLButtonElement
+
+    if(logout){
+        logout.onclick = () => signOut()
+    }
 </script>
