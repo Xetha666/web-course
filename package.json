@@ -9,8 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.5.0",
+    "@auth/core": "^0.37.4",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.4",
+    "auth-astro": "^4.2.0",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
