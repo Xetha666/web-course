@@ -1,5 +1,5 @@
 ---
-import PLANS from '@/utils/Plans.json';
+import {PlansData} from '@/data/plans.ts';
 import Check from '@/assets/svg/check.svg';
 import ButtonPopular from '@/components/ButtonPopular.astro';
 ---
@@ -17,7 +17,7 @@ import ButtonPopular from '@/components/ButtonPopular.astro';
 
     <div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
       {
-        PLANS.map((plan) => (
+        PlansData.map((plan) => (
           <article class={`bg-card relative rounded-xl border-2 p-8 transition-all
           ${plan.popular ? 'border-primary scale-105 shadow-lg' : 'border-border'}`}>
             <!--Más Popular Notify-->

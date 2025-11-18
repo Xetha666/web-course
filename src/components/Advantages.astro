@@ -1,5 +1,5 @@
 ---
-import ADVANTAGES from '@/utils/Advantages.json';
+import {AdvantagesData} from '@/data/advantages.ts';
 import IconCheckCircle from '@/assets/svg/check-circle.svg';
 import IconTrendingUp from '@/assets/svg/trending-up.svg';
 import IconBriefcase from '@/assets/svg/brief-case.svg';
@@ -27,7 +27,7 @@ const iconComponents: Record<string, any> = {
 
     <div class="grid gap-8 lg:grid-cols-2">
       {
-        ADVANTAGES.map((advantage) => {
+        AdvantagesData.map((advantage) => {
           const Icon = iconComponents[advantage.icon];
           return (
             <article class="bg-card text-card-foreground group border-border flex flex-col gap-6 rounded-xl border-2 py-6 shadow-sm transition-all duration-300 hover:shadow-lg">

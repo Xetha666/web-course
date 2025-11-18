@@ -1,0 +1,75 @@
+---
+import {AchievementData} from '@/data/achievement.ts';
+
+---
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-linear-to-br from-amber-600 to-amber-700">
+    <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-white text-center mb-16">Nuestros Logros</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">            
+            {AchievementData.map((Achievement) => (
+                <div class="text-center">                    
+                    <div data-target={Achievement.valor} data-suffix={Achievement.sufijo}
+                         class="text-5xl font-bold text-white text-glow mb-2 counter">0 
+                    </div>                    
+                    <p class="text-amber-100 text-lg">{Achievement.etiqueta}</p>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+.text-glow {
+    text-shadow:
+        0 0 4px rgba(255,255,255,0.95),
+        0 0 8px rgba(255,255,255,0.75),
+        0 0 16px rgba(255,255,255,0.5);
+}
+</style>
+
+<script type="module">
+    const counters = document.querySelectorAll('.counter');
+    const duration = 2500;
+
+    function animateCounter(counterElement) {
+        const targetValue = parseInt(counterElement.getAttribute('data-target'));
+        const suffix = counterElement.getAttribute('data-suffix') || '';
+        
+        let startTime = null;
+
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = timestamp - startTime;
+            
+            const current = Math.min(targetValue, Math.floor((progress / duration) * targetValue));
+            
+            counterElement.textContent = current.toLocaleString() + suffix;
+
+            if (progress < duration) {
+                window.requestAnimationFrame(step);
+            } else {
+                counterElement.textContent = targetValue.toLocaleString() + suffix;
+            }
+        };
+
+        window.requestAnimationFrame(step);
+    }
+    
+    // Observer para iniciar la animación cuando la sección sea visible
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.5 // Inicia cuando el 50% es visible
+    });
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+
+</script>

@@ -1,5 +1,5 @@
 ---
-import REASONS from '@/utils/Reasons.json';
+import {ReasonsData} from '@/data/reasons.ts';
 import IconUsers from '@/assets/svg/users.svg';
 import IconClock from '@/assets/svg/clock.svg';
 import IconAward from '@/assets/svg/award.svg';
@@ -27,7 +27,7 @@ const iconComponents: Record<string, any> = {
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {
-        REASONS.map((reason) => {
+        ReasonsData.map((reason) => {
           const Icon = iconComponents[reason.icon];
 
           return (

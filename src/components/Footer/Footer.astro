@@ -1,27 +1,7 @@
 ---
 import Logo from '@/assets/svg/logo.svg';
-import DataLinks from '@/utils/FooterSocialLinks.json'
-import DataFooter from '@/utils/dataFooter.json'
-
-interface SocialLink {
-  name: string;
-  href: string;
-  icon: string;
-  ariaLabel: string;
-}
-const socialLinks: SocialLink[] = DataLinks
-
-interface FooterColumn {
-  title: string;
-  links: LinkItem[];
-}
-
-interface LinkItem {
-  text: string;
-  href: string;
-}
-
-const footerNavData: FooterColumn[] = DataFooter
+import { FooterSocialLinksData } from '@/data/footer-social-links.ts';
+import { FooterData } from '@/data/footer.ts';
 ---
 
 <footer class="bg-neutral-950/90 text-white">{/*mt-20*/}
@@ -39,46 +19,29 @@ const footerNavData: FooterColumn[] = DataFooter
         </p>
 
         <div class="flex items-center gap-2 mt-2">
-          {socialLinks.map((social) => (
-            <a 
-              href={social.href}
-              class="p-2 rounded-full bg-gray-800 hover:bg-accent transition-colors duration-300"
-              aria-label={social.ariaLabel}
-            >
-              <svg 
-                class="size-5 object-contain shrink-0"
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2"
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-              >
-                {social.name === 'Instagram' ? (
-                  <>
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-                  </>
+          {FooterSocialLinksData.map((social) => (
+            <a href={social.href} aria-label={social.ariaLabel} title={social.title} class="p-2 rounded-full bg-gray-800 hover:bg-accent transition-colors duration-300">
+              <svg class="size-5 object-contain shrink-0"viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"stroke-linecap="round" stroke-linejoin="round">
+                {social.name === 'Instagram' ?
+                (                  
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
                 ) : (
-                  <path d={social.icon}></path>
-                )}
+                      <path d={social.icon}></path>
+                    )}
               </svg>
             </a>
           ))}
         </div>
       </div>
       
-      {footerNavData.map((column) => (
+      {FooterData.map((column) => (
         <div class="flex flex-col gap-4">
           <h3 class="text-lg font-semibold mb-2">{column.title}</h3>
           <ul class="space-y-2">
             {column.links.map((item) => (
               <li>
-                <a 
-                  href={item.href} 
-                  class="text-gray-400 hover:text-accent transition-colors duration-200 text-sm"
-                >
+                <a href={item.href} class="text-gray-400 hover:text-accent transition-colors duration-200 text-sm">
                   {item.text}
                 </a>
               </li>
