@@ -2,7 +2,7 @@
 import Footer from "@/components/Footer/Footer.astro";
 import Header from "@/components/Header/Header.astro";
 import Layout from "@/layouts/Layout.astro";
-import cursosData from '@/utils/Courses.json'; 
+import {CoursesData} from '@/data/courses.ts'; 
 
 const filtrosNivel = [
     { label: 'Todos', active: true },
@@ -11,7 +11,7 @@ const filtrosNivel = [
     { label: 'Avanzado', active: false },
 ];
 
-const totalCursos = cursosData.length;
+const totalCursos = CoursesData.length;
 ---
 
 <Layout title="Cursos">
@@ -43,31 +43,31 @@ const totalCursos = cursosData.length;
                 <p class="empty-text text-center text-muted-foreground py-8 hidden">No se encontraron cursos</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {cursosData.map((curso) => (
+                    {CoursesData.map((course) => (
                         <div class="course-card bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-border flex flex-col h-full">
                             <div class="relative h-48 w-full overflow-hidden bg-muted">
-                                <img alt={curso.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" src={curso.imagenUrl} />
-                                <div class="course-card-title absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">{curso.nivel}</div>
+                                <img alt={course.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" src={course.imagenUrl} />
+                                <div class="course-card-title absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">{course.nivel}</div>
                             </div>
                             <div class="p-5 flex flex-col grow">
-                                <h3 class="text-lg font-bold text-foreground mb-2 line-clamp-2">{curso.titulo}</h3>
-                                <p class="text-sm text-foreground/70 mb-4 line-clamp-2">{curso.descripcion}</p>
-                                <p class="text-sm text-muted-foreground mb-3"><span class="font-semibold">Instructor:</span> {curso.instructor}</p>
+                                <h3 class="text-lg font-bold text-foreground mb-2 line-clamp-2">{course.titulo}</h3>
+                                <p class="text-sm text-foreground/70 mb-4 line-clamp-2">{course.descripcion}</p>
+                                <p class="text-sm text-muted-foreground mb-3"><span class="font-semibold">Instructor:</span> {course.instructor}</p>
                                 
                                 <div class="flex items-center gap-2 mb-3">
                                     <div class="flex text-accent">
                                         {
                                             Array.from({ length: 5 }).map((_, index) => (                                            
-                                                <span class={index < Math.floor(curso.calificacion) ? 'text-accent' : 'text-muted'}>★</span>
+                                                <span class={index < Math.floor(course.calificacion) ? 'text-accent' : 'text-muted'}>★</span>
                                             ))
                                         }
                                     </div>
-                                    <span class="text-sm text-muted-foreground">{curso.calificacion} ({curso.reseñas} reseñas)</span>
+                                    <span class="text-sm text-muted-foreground">{course.calificacion} ({course.review} reseñas)</span>
                                 </div>
                                 
                                 <div class="flex justify-between text-sm text-muted-foreground mb-4 pb-4 border-b border-border">
-                                    <span>⏱️ {curso.duracionHoras} horas</span>
-                                    <span>👥 {curso.estudiantes} estudiantes</span>
+                                    <span>⏱️ {course.duracionHoras} horas</span>
+                                    <span>👥 {course.estudiantes} estudiantes</span>
                                 </div>
                                 <div class="flex items-center justify-between mt-auto">                                
                                     <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-4 shrink-0 [&>svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-9 px-4 py-2 has-[&>svg]:px-3 bg-primary text-primary-foreground hover:bg-primary/90">Inscribirse</button>
