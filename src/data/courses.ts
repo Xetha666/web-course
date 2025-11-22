@@ -1,5 +1,6 @@
 export interface Course {
     id: number;
+    slug: string;
     titulo: string;
     descripcion: string;
     instructor: string;
@@ -14,6 +15,7 @@ export interface Course {
 export const CoursesData: Course[] = [
     {
         id: 1,
+        slug : "programador-web-full-stack",
         titulo: "Programador Web Full Stack",
         descripcion: "Aprende a desarrollar aplicaciones web completas con React, Node.js y bases de datos",
         instructor: "Carlos Mendez",
@@ -26,6 +28,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 2,
+        slug : "react-avanzado",
         titulo: "React Avanzado",
         descripcion: "Domina React con hooks, context API, y patrones avanzados de desarrollo",
         instructor: "María García",
@@ -38,6 +41,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 3,
+        slug : "nodejs-masterclass",
         titulo: "Node.js Masterclass",
         descripcion: "Crea servidores escalables y APIs REST con Node.js y Express",
         instructor: "Juan Rodríguez",
@@ -50,6 +54,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 4,
+        slug : "typescript-completo",
         titulo: "TypeScript Completo",
         descripcion: "Aprende TypeScript desde cero y mejora la calidad de tu código JavaScript",
         instructor: "Ana López",
@@ -62,6 +67,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 5,
+        slug : "bases-de-datos-sql",
         titulo: "Bases de Datos SQL",
         descripcion: "Domina SQL, diseño de bases de datos y optimización de consultas",
         instructor: "Pedro Sánchez",
@@ -74,6 +80,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 6,
+        slug: "devops-y-docker",
         titulo: "DevOps y Docker",
         descripcion: "Aprende a containerizar aplicaciones y desplegar en la nube con Docker y Kubernetes",
         instructor: "Luis Martínez",
@@ -86,6 +93,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 7,
+        slug : "python-para-data-science",
         titulo: "Python para Data Science",
         descripcion: "Análisis de datos, machine learning y visualización con Python",
         instructor: "Sofia Ruiz",
@@ -98,6 +106,7 @@ export const CoursesData: Course[] = [
     },
     {
         id: 8,
+        slug : "nextjs-15-moderno",
         titulo: "Next.js 15 Moderno",
         descripcion: "Crea aplicaciones web modernas con Next.js 15, App Router y Server Components",
         instructor: "Miguel Torres",

@@ -1,0 +1,229 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header/Header.astro";
+import Footer from "@/components/Footer/Footer.astro";
+import { CourseDetailData } from "@/data/course.ts";
+
+// Iconos básicos
+import ClockIcon from "@/components/icons/ClockIcon.astro";
+import UsersIcon from "@/components/icons/UsersIcon.astro";
+import AwardIcon from "@/components/icons/AwardIcon.astro";
+import CheckIcon from "@/components/icons/CheckIcon.astro";
+
+// Iconos de tecnologías
+import HTML5Icon from "@/components/icons/HTML5Icon.astro";
+import CSS3Icon from "@/components/icons/CSS3Icon.astro";
+import JavaScriptIcon from "@/components/icons/JavaScriptIcon.astro";
+import ReactIcon from "@/components/icons/ReactIcon.astro";
+import NodeIcon from "@/components/icons/NodeIcon.astro";
+import TypeScriptIcon from "@/components/icons/TypeScriptIcon.astro";
+import PostgreSQLIcon from "@/components/icons/PostgreSQLIcon.astro";
+import MongoDBIcon from "@/components/icons/MongoDBIcon.astro";
+import ExpressIcon from "@/components/icons/ExpressIcon.astro";
+import GitIcon from "@/components/icons/GitIcon.astro";
+import TailwindIcon from "@/components/icons/TailwindIcon.astro";
+import NextJSIcon from "@/components/icons/NextJSIcon.astro";
+import PythonIcon from "@/components/icons/PythonIcon.astro";
+import DockerIcon from "@/components/icons/DockerIcon.astro";
+import KubernetesIcon from "@/components/icons/KubernetesIcon.astro";
+
+// Obtener el slug de la URL
+const { slug } = Astro.params;
+
+// Buscar el curso
+const course = CourseDetailData.find(c => c.slug === slug);
+
+// Si no existe el curso, redirigir a 404
+if (!course) {
+    return Astro.redirect('/404');
+}
+
+// Mapa de iconos
+const iconMap: Record<string, any> = {
+    html5: HTML5Icon,
+    css3: CSS3Icon,
+    javascript: JavaScriptIcon,
+    react: ReactIcon,
+    node: NodeIcon,
+    typescript: TypeScriptIcon,
+    postgresql: PostgreSQLIcon,
+    mongodb: MongoDBIcon,
+    express: ExpressIcon,
+    git: GitIcon,
+    tailwind: TailwindIcon,
+    nextjs: NextJSIcon,
+    python: PythonIcon,
+    docker: DockerIcon,
+    kubernetes: KubernetesIcon
+};
+
+// Generar paths estáticos para todas las páginas
+export async function getStaticPaths() {
+    return CourseDetailData.map(course => ({
+        params: { slug: course.slug }
+    }));
+}
+---
+
+<Layout title={course.titulo}>
+    <Header />
+    <main class="min-h-screen bg-background">
+        <!-- Hero Section -->
+        <section class="py-16 md:py-24 bg-linear-to-br from-background to-muted">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-block">
+                            <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold">Curso Profesional</span>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl font-bold text-foreground leading-tight">{course.titulo}</h1>
+                        <p class="text-lg text-muted-foreground leading-relaxed">{course.descripcionLarga}</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive text-primary-foreground h-10 rounded-md px-6 has-[>svg]:px-4 bg-primary hover:bg-primary/90">Inscríbete Ahora</button>
+                            <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-10 rounded-md px-6 has-[>svg]:px-4">Ver Programa</button>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 pt-8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <ClockIcon />
+                                </div>
+                                <span class="text-sm font-medium">{course.duracionMeses} meses</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <UsersIcon />
+                                </div>
+                                <span class="text-sm font-medium">{course.modalidad}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                                    <AwardIcon />
+                                </div>
+                                <span class="text-sm font-medium">{course.certificado ? 'Certificado' : 'Sin certificado'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-linear-to-br from-primary/20 to-secondary/20 rounded-2xl blur-3xl"></div>
+                        <div class="relative bg-linear-to-br from-primary/10 to-secondary/10 rounded-2xl p-8 border border-primary/20">
+                            <img alt={course.titulo} class="w-full h-auto rounded-lg" src={course.imagenUrl} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ¿Qué aprenderás? -->
+        <section class="py-16 md:py-24 bg-background">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">¿Qué aprenderás?</h2>
+                    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">Un programa completo que te llevará desde los fundamentos hasta el desarrollo profesional</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {course.queAprenderas.map((item) => {
+                        const IconComponent = iconMap[item.icono];
+                        return (
+                            <div class="p-6 rounded-xl border border-border bg-card hover:shadow-lg transition-shadow">
+                                <div class="mb-4 text-primary">
+                                    {IconComponent && <IconComponent />}
+                                </div>
+                                <h3 class="text-xl font-semibold text-foreground mb-2">{item.titulo}</h3>
+                                <p class="text-muted-foreground">{item.descripcion}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+
+        <!-- Programa del Curso -->
+        <section class="py-16 md:py-24 bg-muted">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">Programa del Curso</h2>
+                    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">Contenido estructurado en módulos progresivos</p>
+                </div>
+                <div class="space-y-4">
+                    {course.modulos.map((modulo) => (
+                        <div class="p-6 rounded-xl border border-border bg-card hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between mb-4">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-2">
+                                        <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">Módulo {modulo.numero}</span>
+                                        <span class="text-sm text-muted-foreground font-medium">{modulo.duracion}</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-foreground">{modulo.titulo}</h3>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {modulo.temas.map((tema) => (
+                                    <div class="flex items-center gap-2">
+                                        <CheckIcon />
+                                        <span class="text-foreground">{tema}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- Tecnologías -->
+        <section class="py-16 md:py-24 bg-background">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-foreground mb-4">Tecnologías que dominarás</h2>
+                    <p class="text-lg text-muted-foreground max-w-2xl mx-auto">Las herramientas más demandadas en la industria</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {course.tecnologias.map((tech) => {
+                        const TechIcon = iconMap[tech.icono];
+                        return (
+                            <div class="p-4 rounded-lg border border-border bg-card hover:bg-primary/5 transition-colors text-center flex flex-col items-center gap-3">
+                                {TechIcon && (
+                                    <div class="text-primary">
+                                        <TechIcon />
+                                    </div>
+                                )}
+                                <p class="font-semibold text-foreground">{tech.nombre}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="py-16 md:py-24 bg-linear-to-r from-primary to-secondary">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">Comienza tu carrera como {course.titulo}</h2>
+                <p class="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">Únete a más de 500 estudiantes que ya están construyendo su futuro en tecnología. Próxima cohorte inicia en 2 semanas.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-10 rounded-md px-6 has-[>svg]:px-4">Ver Precios</button>
+                    <button data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-10 rounded-md px-6 has-[>svg]:px-4 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 bg-transparent">Agendar Asesoría</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    :root {
+        --background: #ffffff;
+        --foreground: #222222;
+        --muted: #f5f5f5;
+        --muted-foreground: #666666;
+        --card: #ffffff;
+        --border: oklch(.922 0 0);
+        --accent: #f99100;
+        --accent-foreground: #ffffff;
+        --primary: #d3721e;
+        --primary-foreground: #ffffff;
+        --secondary: #e89f5e;
+        --secondary-foreground: #ffffff;
+        --ring: #d3721e;
+    }
+</style>

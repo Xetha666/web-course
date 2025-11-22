@@ -1,0 +1,232 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Verificar pago">
+    <section class="min-h-screen bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <div class="mx-auto max-w-7xl px-4 2xl:px-0">
+            <div class="mx-auto max-w-5xl">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Pago</h2>
+
+            <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
+                <form action="#" class="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
+                    <!-- Sección de selección de tipo de pago -->
+                    <div class="mb-6">
+                        <h3 class="mb-4 text-base font-semibold text-gray-900 dark:text-white">Seleccione tipo de pago</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <!-- Visa -->
+                            <label class="relative cursor-pointer">
+                                <input 
+                                    type="radio" 
+                                    name="payment-method" 
+                                    value="visa" 
+                                    class="peer sr-only" 
+                                    checked
+                                />
+                                <div class="flex flex-col items-center justify-center rounded-lg border-2 border-gray-200 bg-white p-4 hover:border-primary-500 peer-checked:border-primary-600 peer-checked:bg-primary-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500 dark:peer-checked:border-primary-500 dark:peer-checked:bg-gray-700 transition-all">
+                                    <svg class="h-8 w-auto mb-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="48" height="48" rx="4" fill="#1A1F71"/>
+                                        <path d="M18.5 31L21.8 17H25.5L22.2 31H18.5Z" fill="#FFA533"/>
+                                        <path d="M18.5 31L21.8 17H25.5L22.2 31H18.5Z" fill="white"/>
+                                        <path d="M35.8 17.3C35.1 17 34 16.7 32.7 16.7C29 16.7 26.4 18.6 26.4 21.3C26.4 23.3 28.2 24.4 29.6 25.1C31 25.8 31.5 26.2 31.5 26.8C31.5 27.7 30.4 28.1 29.4 28.1C27.9 28.1 27.1 27.9 25.9 27.4L25.4 27.2L24.9 30.2C25.7 30.6 27.2 30.9 28.8 30.9C32.8 30.9 35.3 29 35.4 26.1C35.4 24.5 34.3 23.3 32 22.3C30.7 21.7 29.9 21.3 29.9 20.6C29.9 20 30.7 19.4 32.4 19.4C33.6 19.4 34.5 19.6 35.2 20L35.5 20.1L36 17.3H35.8Z" fill="white"/>
+                                        <path d="M40.9 17H38.1C37.2 17 36.5 17.3 36.1 18.1L30.4 31H34.4L35.3 28.7H40.1L40.6 31H44.1L41 17H40.9ZM36.5 25.9L38.5 20.3L39.7 25.9H36.5Z" fill="white"/>
+                                        <path d="M16.2 17L12.3 26.7L11.9 24.6C11.2 22.1 9 19.4 6.5 18L9.9 31H13.9L19.8 17H16.2Z" fill="white"/>
+                                        <path d="M8.7 17H3.1L3 17.3C7.7 18.5 10.8 21.4 12 24.6L10.7 18.2C10.5 17.4 9.8 17 9 17H8.7Z" fill="#FFA533"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">Visa</span>
+                                </div>
+                            </label>
+
+                            <!-- MasterCard -->
+                            <label class="relative cursor-pointer">
+                                <input 
+                                    type="radio" 
+                                    name="payment-method" 
+                                    value="mastercard" 
+                                    class="peer sr-only"
+                                />
+                                <div class="flex flex-col items-center justify-center rounded-lg border-2 border-gray-200 bg-white p-4 hover:border-primary-500 peer-checked:border-primary-600 peer-checked:bg-primary-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500 dark:peer-checked:border-primary-500 dark:peer-checked:bg-gray-700 transition-all">
+                                    <svg class="h-8 w-auto mb-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="18" cy="24" r="12" fill="#EB001B"/>
+                                        <circle cx="30" cy="24" r="12" fill="#F79E1B"/>
+                                        <path d="M24 14.4C22.1 16 21 18.4 21 21C21 23.6 22.1 26 24 27.6C25.9 26 27 23.6 27 21C27 18.4 25.9 16 24 14.4Z" fill="#FF5F00"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">MasterCard</span>
+                                </div>
+                            </label>
+
+                            <!-- Yape -->
+                            <label class="relative cursor-pointer">
+                                <input 
+                                    type="radio" 
+                                    name="payment-method" 
+                                    value="yape" 
+                                    class="peer sr-only"
+                                />
+                                <div class="flex flex-col items-center justify-center rounded-lg border-2 border-gray-200 bg-white p-4 hover:border-primary-500 peer-checked:border-primary-600 peer-checked:bg-primary-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-primary-500 dark:peer-checked:border-primary-500 dark:peer-checked:bg-gray-700 transition-all">
+                                    <svg class="h-8 w-auto mb-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="48" height="48" rx="8" fill="#4B1F6F"/>
+                                        <path d="M24 12C17.4 12 12 17.4 12 24C12 30.6 17.4 36 24 36C30.6 36 36 30.6 36 24C36 17.4 30.6 12 24 12ZM28.5 26.5C28.5 27.3 27.8 28 27 28H21C20.2 28 19.5 27.3 19.5 26.5V21.5C19.5 20.7 20.2 20 21 20H27C27.8 20 28.5 20.7 28.5 21.5V26.5Z" fill="#00E396"/>
+                                        <circle cx="24" cy="24" r="3" fill="white"/>
+                                    </svg>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">Yape</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-6 grid grid-cols-2 gap-4">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="full_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Nombre completo*</label>
+                            <input type="text" id="full_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Juan Pérez" required />
+                        </div>
+
+                        <div class="col-span-2 sm:col-span-1">
+                            <label for="card-number-input" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Número de tarjeta* </label>
+                            <input type="text" id="card-number-input" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="xxxx-xxxx-xxxx-xxxx" pattern="^4[0-9]{12}(?:[0-9]{3})?$" required />
+                        </div>
+
+                        <div>
+                            <label for="card-expiration-input" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Fecha de vencimiento* </label>
+                            <div>
+                                <input 
+                                    id="card-expiration-input" 
+                                    type="date"
+                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900
+                                        focus:border-primary-500 focus:ring-primary-500 
+                                        dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400
+                                        dark:focus:border-primary-500 dark:focus:ring-primary-500" 
+                                    required 
+                                />
+                            </div>
+                        </div>
+                        <div>
+                        <label for="cvv-input" class="mb-2 flex items-center gap-1 text-sm font-medium text-gray-900 dark:text-white">
+                            CVV*
+                            <div class="relative inline-block">
+                                <button 
+                                    type="button"
+                                    id="cvv-tooltip-trigger"
+                                    class="text-gray-400 hover:text-gray-900 dark:text-gray-500 dark:hover:text-white transition-colors"
+                                >
+                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                                <div 
+                                    id="cvv-tooltip" 
+                                    role="tooltip" 
+                                    class="absolute z-10 invisible opacity-0 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 transition-opacity duration-200 bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap"
+                                >
+                                    Los últimos 3 dígitos en la parte posterior de la tarjeta
+                                    <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-gray-900 dark:border-t-gray-700"></div>
+                                </div>
+                            </div>
+                        </label>
+                        <input type="number" id="cvv-input" aria-describedby="helper-text-explanation" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="•••" required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-primary-800 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Pagar ahora</button>
+                </form>
+
+                <div class="mt-6 grow sm:mt-8 lg:mt-0">
+                <div class="space-y-4 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                    <div class="space-y-2">
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Precio original</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">$6,592.00</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Ahorros</dt>
+                            <dd class="text-base font-medium text-green-500">-$299.00</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Recojo en tienda</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
+                        </dl>
+
+                        <dl class="flex items-center justify-between gap-4">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Impuestos</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">$799</dd>
+                        </dl>
+                    </div>
+
+                    <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                    <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                    <dd class="text-base font-bold text-gray-900 dark:text-white">$7,191.00</dd>
+                    </dl>
+                </div>
+
+                <div class="mt-6 flex items-center justify-center gap-8">
+                    <img class="h-8 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal.svg" alt="" />
+                    <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/paypal-dark.svg" alt="" />
+                    <img class="h-8 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg" alt="" />
+                    <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa-dark.svg" alt="" />
+                    <img class="h-8 w-auto dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg" alt="" />
+                    <img class="hidden h-8 w-auto dark:flex" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard-dark.svg" alt="" />
+                </div>
+                </div>
+            </div>
+
+            <p class="mt-6 text-center text-gray-500 dark:text-gray-400 sm:mt-8 lg:text-left">
+                Pago procesado por <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">Paddle</a> para <a href="#" class="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">Flowbite LLC</a>
+                - Estados Unidos de América
+            </p>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    /* Personalizar el icono del calendario en el input date - MODO CLARO (negro) */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: brightness(0) saturate(100%);
+        opacity: 1;
+        transition: opacity 0.2s;
+    }
+
+    /* Personalizar el icono del calendario en el input date - MODO CLARO (texto gris-400) */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        /* convertir el ícono a un color aproximado a text-gray-400 (#9ca3af) */
+        filter: brightness(0) saturate(100%) invert(62%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(95%) contrast(90%);
+        /* respaldo visual por si el navegador soporta color directo */
+        color: #9ca3af;
+        opacity: 1;
+        transition: opacity 0.2s, filter 0.2s;
+    }
+
+    /* Hover en modo claro */
+    input[type="date"]::-webkit-calendar-picker-indicator:hover {
+        opacity: 0.7;
+    }     
+
+    /* Cuando no hay valor seleccionado (placeholder) */
+    input[type="date"]:not(:focus):invalid {
+        color: #9ca3af;
+    }
+
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const trigger = document.getElementById('cvv-tooltip-trigger');
+        const tooltip = document.getElementById('cvv-tooltip');
+        
+        if (trigger && tooltip) {
+            trigger.addEventListener('mouseenter', () => {
+                tooltip.classList.remove('invisible', 'opacity-0');
+                tooltip.classList.add('visible', 'opacity-100');
+            });
+            
+            trigger.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible', 'opacity-100');
+                tooltip.classList.add('invisible', 'opacity-0');
+            });
+        }
+    });
+</script>
