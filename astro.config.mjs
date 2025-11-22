@@ -18,7 +18,7 @@ export default defineConfig({
       }
     }
   },
-  output : "server",
+  output: "server", //Por defecto static 
   adapter: node({
     mode: 'standalone'
   }),
